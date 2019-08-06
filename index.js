@@ -28,15 +28,13 @@ app.use(keycloak.middleware());
 app.use(cors());
 app.use(bodyparser.json());
 
-app.use('/user', userRouter);
-app.use('/admin', adminRouter);
-app.get("/test", keycloak.protect(), function (req, res) {
-    res.send("Authenticated Route");
+
+app.use('/user', keycloak.protect(), userRouter);
+app.use('/admin', keycloak.enforcer(config.adminPermission), adminRouter);
+app.get("/test", function (req, res) {
+    res.send("Non Authenticated Route");
 });
 
-app.get('/', function (req, res) {
-    res.send("Normal User");
-});
 
 app.use(keycloak.middleware({
     logout: '/'

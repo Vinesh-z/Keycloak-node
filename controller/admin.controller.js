@@ -5,7 +5,7 @@ var Item = require('../models/item');
 
 function addData(req, res) {
 
-    console.log(req.headers);
+
     var item = new Item(req.body);
     item.save((err, savedData) => {
         if (err) {

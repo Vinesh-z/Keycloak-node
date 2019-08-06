@@ -9,5 +9,10 @@
     "secret": "38c0fce6-9fb7-4306-b3fc-cf4b2c35ea8b"
   },
   "confidential-port": 0,
-  "policy-enforcer": {}
+  "policy-enforcer": {
+    "path-cache": {
+      "lifespan": 0
+    }
+  },
+  "enable-cors": true
 }
