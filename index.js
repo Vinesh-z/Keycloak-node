@@ -1,6 +1,7 @@
 const Keycloak = require('keycloak-connect');
 const express = require('express');
 var session = require('express-session');
+var config = require('./config/config');
 var memoryStore = new session.MemoryStore();
 const app = express();
 const bodyparser = require('body-parser');
@@ -9,7 +10,7 @@ var userRouter = require('./routes/user.route');
 var adminRouter = require('./routes/admin.route');
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/keycloak');
+mongoose.connect(config.mongoUrl);
 
 var keycloak = new Keycloak({
     store: memoryStore
@@ -41,6 +42,6 @@ app.use(keycloak.middleware({
     logout: '/'
 }));
 
-app.listen(8000, function () {
-    console.log('Listening at http://localhost:8000');
+app.listen(config.appPort, function () {
+    console.log('App listening on ' + config.appUrl + config.appPort);
 });
